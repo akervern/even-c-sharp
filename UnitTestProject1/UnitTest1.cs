@@ -15,8 +15,9 @@ namespace EvenCSharp
         {
             var inputs = new String[] { "somfile.dat", "nothing", "movie.torrent", "bla.hello.ascii", ".htaccess", "empty.", null };
             var expected = new String[] { "dat", null, "torrent", "ascii", "htaccess", "", null };
-
-            CollectionAssert.AreEqual(expected, Enumerable.Select<string, string>(inputs, input => Tester.getFilenameExtension(input)).ToArray());
+            Console.Out.WriteLine("coucou");
+            var output = Enumerable.Select<string, string>(inputs, input => Tester.getFilenameExtension(input)).ToArray();
+            CollectionAssert.AreEqual(expected, output);
         }
 
         [TestMethod]
@@ -37,8 +38,8 @@ namespace EvenCSharp
             {
                 "abc", "abc", "tiny", "abc", "rewq", "abc", null
             };
-
-            CollectionAssert.AreEqual(expected, Enumerable.Select<Object[], string>(inputs, input => Tester.getLongestString(input)).ToArray());
+            var output = Enumerable.Select<Object[], string>(inputs, input => Tester.getLongestString(input)).ToArray();
+            CollectionAssert.AreEqual(expected, output);
         }
 
         [TestMethod]
@@ -60,7 +61,8 @@ namespace EvenCSharp
             var inputs = new String[] { "abc", "aaaaabbbc", null, "abccccc", "aaaaaaaabb"};
             var expected = new String[] {"abc", "5a3bc", null, "ab5c", "8a2b"};
 
-            CollectionAssert.AreEqual(expected, Enumerable.Select<string, string>(inputs, input => Tester.compressString(input)).ToArray());
+            var output = Enumerable.Select<string, string>(inputs, input => Tester.compressString(input)).ToArray();
+            CollectionAssert.AreEqual(expected, output);
         }
 
         [TestMethod]
@@ -84,7 +86,14 @@ namespace EvenCSharp
                 new String[] {"aaab", "aaaa", "ab"}
             };
 
-            CollectionAssert.AreEqual(expected, Enumerable.Select<string[], string[]>(inputs, input => Tester.sortArray(input)).ToArray());
+            var output = Enumerable.Select<string[], string[]>(inputs, input => Tester.sortArray(input)).ToArray();
+            for (int i = 0; i < expected.Length; i++)
+            {
+                var lineOut = output[i];
+                var lineExpect = expected[i];
+                
+                CollectionAssert.AreEqual(lineExpect, lineOut);
+            }
         }
     }
 }
